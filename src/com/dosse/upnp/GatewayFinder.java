@@ -117,7 +117,8 @@ abstract class GatewayFinder {
             while (ifaces.hasMoreElements()) {
                 try {
                     NetworkInterface iface = ifaces.nextElement();
-                    if (!iface.isUp() || iface.isLoopback() || iface.isVirtual() || iface.isPointToPoint()) {
+                    IFaceParser parser = new IFaceParser(iface);
+                    if (!parser.isUp() || parser.isLoopback() || parser.isVirtual() || parser.isPointToPoint()) {
                         continue;
                     }
                     Enumeration<InetAddress> addrs = iface.getInetAddresses();

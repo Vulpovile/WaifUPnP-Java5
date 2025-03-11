@@ -51,7 +51,7 @@ class Gateway {
         StringTokenizer st = new StringTokenizer(new String(data), "\n");
         while (st.hasMoreTokens()) {
             String s = st.nextToken().trim();
-            if (s.isEmpty() || s.startsWith("HTTP/1.") || s.startsWith("NOTIFY *")) {
+            if (s.length() <= 0 || s.startsWith("HTTP/1.") || s.startsWith("NOTIFY *")) {
                 continue;
             }
             String name = s.substring(0, s.indexOf(':')), val = s.length() >= name.length() ? s.substring(name.length() + 1).trim() : null;
