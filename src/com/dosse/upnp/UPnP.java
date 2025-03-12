@@ -63,6 +63,7 @@ public class UPnP {
         return defaultGW!=null;
     }
 
+
     /**
      * Opens a TCP port on the gateway
      * 
@@ -70,8 +71,7 @@ public class UPnP {
      * @return true if the operation was successful, false otherwise
      */
     public static boolean openPortTCP(int port) {
-        if(!isUPnPAvailable()) return false;
-        return defaultGW.openPort(port, false);
+        return openPortTCP(port, 0);
     }
     
     /**
@@ -81,8 +81,31 @@ public class UPnP {
      * @return true if the operation was successful, false otherwise
      */
     public static boolean openPortUDP(int port) {
+        return openPortUDP(port, 0);
+    }
+    
+    /**
+     * Opens a TCP port on the gateway
+     * 
+     * @param port TCP port (0-65535)
+     * @param lease duration (0 is infinite)
+     * @return true if the operation was successful, false otherwise
+     */
+    public static boolean openPortTCP(int port, int leaseDuration) {
         if(!isUPnPAvailable()) return false;
-        return defaultGW.openPort(port, true);
+        return defaultGW.openPort(port, false, leaseDuration);
+    }
+    
+    /**
+     * Opens a UDP port on the gateway
+     * 
+     * @param port UDP port (0-65535)
+     * @param lease duration (0 is infinite)
+     * @return true if the operation was successful, false otherwise
+     */
+    public static boolean openPortUDP(int port, int leaseDuration) {
+        if(!isUPnPAvailable()) return false;
+        return defaultGW.openPort(port, true, leaseDuration);
     }
     
     /**
